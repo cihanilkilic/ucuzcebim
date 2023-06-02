@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %} {% block body %}
+
+<div class="container px-4 px-lg-5 shadow border-0" style="margin-top: 80px;margin-bottom: 30px;">
+
+
+    <form method="POST" class="form form-control mt-3  border-0"   enctype="multipart/form-data">
+        
+      {% csrf_token %}
+      {% if messages %}
+      {% include 'messages/success.html' %}
+      {% endif %}
+         <div class="container">
+          <h6 class="text-center">Telefon Aksesuar İlanı</h6>
+
+           <div class="row row row-cols-2 row-cols-md-2 g-2">
+            <div class="col-sm text-center">
+                <label for="inputPassword6" class="col-form-label ">Aksesuar Adı</label>
+      <input type="text" id="" placeholder="Aksesuar Adı" name="aksesuar_name" class="form-control">
+         </div>
+    
+            <div class="col-sm text-center">
+                <label for="inputPassword6" class="col-form-label ">Durumu</label>
+             <div class="dropdown " >
+     <!-- başlangıç-->
+     <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="situation">
+      {% for situation in situation_lists %}
+      <option value="{{situation}}">{{situation}}</option>
+      {% endfor %}
+    </select>
+     <!-- Bitiş-->
+         </div>
+         </div>
+
+         </div>
+    
+    
+    <!-- İkinci dropdown  -->
+    
+    <div class="row row row-cols-2 row-cols-md-3 g-2">
+      <div class="col-sm text-center">
+        <input type="text" id="" placeholder="İl" name="city" class="form-control" />
+      </div>
+      <div class="col-sm text-center">
+        <input type="text" id="" placeholder="İlçe" name="district" class="form-control" />
+      </div>
+      <div class="col-sm text-center col-12">
+        <input type="number" id="" placeholder="Fiyat"  name="price" class="form-control" />
+      </div>
+      <textarea class="form-control"placeholder="Açıklama" name="comment"id="floatingTextarea"style="height: 200px"></textarea>
+    </div>
+
+    <div class="mb-3 mt-3">
+      <!-- <label for="formFile" class="form-label">Default file input example</label>-->
+      <input
+        class="form-control"
+        type="file" 
+        id="formFile"
+        name="avatar"
+      />
+    </div>
+
+      <div class="d-grid gap-2 mt-2">
+        <button class="btn btn-success mb-3" type="submit">İlanı Oluştur</button>
+      </div>
+  </form>
+
+    </div>
+{% endblock body %}

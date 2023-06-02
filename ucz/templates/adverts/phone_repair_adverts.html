@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %} {% block body %}
+
+<div
+  class="container px-4 px-lg-5 shadow border-0"
+  style="margin-top: 80px; margin-bottom: 30px"
+>
+  <form
+    method="POST"
+    class="form form-control mt-3 border-0"
+    enctype="multipart/form-data"
+  >
+  {% csrf_token %}
+
+{% include 'messages/success.html' %}
+
+    <div class="container">
+      <h6 class="text-center">Telefon Tamir İlanı</h6>
+
+      <div class="row row row-cols-2 row-cols-md-2 g-2">
+        <div class="col-sm text-center mb-3">
+          <label for="inputPassword6" class="col-form-label"
+            >Telefon Markası</label
+          >
+          <input
+            type="text"
+            id=""
+            name="phone_brand"
+            placeholder="Telefon Markası"
+            class="form-control"
+          />
+        </div>
+
+        <div class="col-sm text-center mb-3">
+          <label for="inputPassword6" class="col-form-label"
+            >Telefon Modeli</label
+          >
+          <input
+            type="text"
+            id=""
+            name="phone_model"
+            placeholder="Telefon Modeli"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <!-- İkinci dropdown  -->
+
+      <div class="row row row-cols-2 row-cols-md-2 g-2">
+        <div class="col-sm text-center mb-3">
+          <label for="inputPassword6" class="col-form-label">İl</label>
+          <input type="text" id="" name="city" placeholder="İl" class="form-control" />
+        </div>
+
+        <div class="col-sm text-center mb-3">
+          <label for="inputPassword6" class="col-form-label">İlçe</label>
+          <input type="text" id="" name="district" placeholder="İlçe" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Üçüncü dropdown  -->
+      <div class="row row row-cols-2 row-cols-md-4 g-2">
+        <textarea
+          class="form-control"
+          placeholder="Telefonun Sorunu"
+          name="comment"
+          id=""
+          style="height: 200px"
+        ></textarea>
+      </div>
+      <div class="mb-3 mt-3">
+        <!-- <label for="formFile" class="form-label">Default file input example</label>-->
+        <input
+          class="form-control"
+          type="file"
+          id="formFile"
+          name="avatar"
+        />
+      </div>
+      <div class="d-grid gap-2 mt-2">
+        <button class="btn btn-success mb-3" type="submit">
+          İlanı Oluştur
+        </button>
+      </div>
+    </div>
+
+    {% endblock body %}
+  </form>
+</div>

@@ -1,0 +1,101 @@
+<div class="modal-body">
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- ilk iki ilan -->
+      <div class="row">
+        <!-- Akıllı Telefon Satış İlanı -->
+        <div class="col-sm-6 mb-3 mb-md-3">
+          <div class="card">
+            <div class="card-body d-flex align-items-center">
+              <div class="w-100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnC_nT7dXfRvLyasV_mJQDrddDNhhOaJXOZWQ7wr4MCHCKpuVlkEmN9JBzOATzUiNKlw&usqp=CAU" class="w-100">
+              </div>
+            </div>
+            <div class="card-footer">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'advert:Phone_Sales' request.user.id %}" class="btn btn-primary d-block">
+                <h6 class="card-title"><small>Cep Telefonu Satış İlanı</small></h6>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Akıllı Telefon Satış İlanı -->
+  
+        <!-- Çıkma Tamir İlanı -->
+        <div class="col-sm-6 mb-3 mb-md-3">
+          <div class="card">
+            <div class="card-body d-flex align-items-center">
+              <div class="w-100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnC_nT7dXfRvLyasV_mJQDrddDNhhOaJXOZWQ7wr4MCHCKpuVlkEmN9JBzOATzUiNKlw&usqp=CAU" class="w-100">
+              
+              </div>
+            </div>
+            <div class="card-footer">
+              {% if request.user.is_authenticated %}
+
+              <a href="{% url 'advert:Phone_Repair' request.user.id %}" class="btn btn-primary d-block">
+                <h6 class="card-title"><small>Akıllı Telefon Tamir İlanı</small></h6>
+                {% endif %}
+
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Çıkma Tamir İlanı -->
+      </div>
+  
+      <!-- İkinci İki İlan -->
+      <div class="row">
+        <!-- Çıkma Parça -->
+        <div class="col-sm-6 mb-3 mb-md-5">
+          <div class="card">
+            <div class="card-body d-flex align-items-center">
+              <div class="w-100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnC_nT7dXfRvLyasV_mJQDrddDNhhOaJXOZWQ7wr4MCHCKpuVlkEmN9JBzOATzUiNKlw&usqp=CAU" class="w-100">
+
+              </div>
+            </div>
+            <div class="card-footer">
+              {% if request.user.is_authenticated %}
+              
+              <a href="{% url 'advert:Phone_Part' request.user.id %}" class="btn btn-primary d-block">
+                <h6 class="card-title"><small>Parça Satış İlanı</small></h6>
+                {% endif %}
+
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Çıkma Parça -->
+  
+        <!-- Aksesuar -->
+        <div class="col-sm-6 mb-3 mb-md-5">
+          <div class="card">
+            <div class="card-body d-flex align-items-center">
+              <div class="w-100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnC_nT7dXfRvLyasV_mJQDrddDNhhOaJXOZWQ7wr4MCHCKpuVlkEmN9JBzOATzUiNKlw&usqp=CAU" class="w-100">
+
+            </div>
+          </div>
+          <div class="card-footer">
+            {% if request.user.is_authenticated %}
+
+            <a href="{% url 'advert:Phone_Aksesuar' request.user.id %}" class="btn btn-primary d-block">
+              <h6 class="card-title"><small>Aksesuar Satış İlanı</small></h6>
+              {% endif %}
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Aksesuar -->
+    </div>
+    <!-- İkinci İki İlan -->
+
+    <div class="modal-footer">
+
+    </div>
+</form>
+</div>
+  

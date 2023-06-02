@@ -1,0 +1,247 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+<!-- home/search.html -->
+<!-- home/search.html -->
+
+
+
+{% comment %} <section class="py-5 mt-3">
+  <div class="container px-5 shadow border-0">
+    <div class="row gx-5">
+      {% if business_staff %}
+      <h2 class="fw-bolder fs-5 mb-4 text-center pt-3 text-primary">Kişiler veya İşletmeler</h2>
+      {% for staff_member in business_staff %}
+      <div class="col-sm-3 mb-3" style="">
+        <div class="card text-white" style="background: rgb(238,174,202);
+        background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);">
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <a href="{% url 'user:Profil' staff_member.author.id %}" class="text-white text-decoration-none" style="text-transform: uppercase;">{{ staff_member.author_name|truncatechars:15 }}</a>
+            </h5>
+            <p class="card-text">Adres:{{ staff_member.address|truncatechars:18 }}</p>
+            <a href="{% url 'user:Profil' staff_member.author.id %}" class="btn btn-warning d-block text-white">Görüntüle</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section> {% endcomment %}
+<hr>
+<section class="container py-3 mt-5 shadow border-0 rounded">
+  <div class="container">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      {% if business_staff %}
+      <h2 class="fw-bold fs-4 mb-4 text-center text-primary">Kişiler veya İşletmeler</h2>
+      {% for staff_member in business_staff %}
+      <div class="col-md-3 mb-4">
+        <div class="card bg-light border-0 rounded-3 shadow">
+          <div class="card-body text-center">
+            <div class="profile-picture">
+              {% comment %} <img src="{{ staff_member.avatar }}" alt="{{ staff_member.author_name }}" class="rounded-circle mb-3"> {% endcomment %}
+              <i class="fas fa-user-circle"></i> <!-- Replace with appropriate font icon -->
+            </div>
+            {% if staff_member.is_staff %}
+            <p class="card-text mb-3"><i class="bi bi-shop"></i> İşletme sahibi</p> <!-- Replace with appropriate font icon -->
+          {% else %}
+            <p class="card-text mb-3"><i class="bi bi-person"></i> Kişisel hesap</p> <!-- Replace with appropriate font icon -->
+          {% endif %}
+            <h5 class="card-title text-uppercase mb-2">{{ staff_member.author_name|truncatechars:15 }}</h5>
+            <p class="card-text mb-3">Adres: {{ staff_member.address|truncatechars:18 }}</p>
+            <a href="{% url 'user:Profil' staff_member.author.id %}" class="btn btn-primary btn-block w-100"><i class="bi bi-arrow-right"></i></a>
+            <div class="social-media-links mt-2 " style=" display: flex;justify-content: center;align-items: center;height:20px">
+              {% if staff_member.social_media_facebook %}
+              <a href="{{staff_member.social_media_facebook}}"  target="_blank" class="social-link" style="display: inline-block;margin-right: 1rem;"><i class="bi bi-facebook"></i></a> <!-- Replace with appropriate font icon and link -->
+              {% endif %}
+              {% if staff_member.social_media_twitter %}
+              <a href="{{staff_member.social_media_twitter}}"  target="_blank" class="social-link" style="display: inline-block;margin-right: 1rem;"><i class="bi bi-twitter"></i></a> <!-- Replace with appropriate font icon and link -->
+              {% endif %}
+              {% if staff_member.social_media_instagram %}
+              <a href="{{staff_member.social_media_instagram}}"  target="_blank" class="social-link" style="display: inline-block;margin-right: 1rem;"><i class="bi bi-instagram"></i></a> <!-- Replace with appropriate font icon and link -->
+              {% endif %}
+              {% if staff_member.social_media_tiktok %}
+              <a href="{{staff_member.social_media_tiktok}}"  target="_blank" class="social-link" style="display: inline-block;margin-right: 1rem;"><i class="bi bi-tiktok"></i></a> <!-- Replace with appropriate font icon and link -->
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="col-12 text-center">
+        <p class="fs-5">Üye bulunamadı.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+<section class="py-3 ">
+    <div class="container px-5 shadow border-0 rounded">
+        <h2 class="fw-bold mb-1 fs-4 mb-4 text-center text-primary ">Tamir/Satılık Ürünler/Telefon Parçaları/Aksesuar</h2>
+        <div class="row gx-5">
+<!-- cardlar başlangıç-->
+
+{% if mobile_repairs %}
+{% for phone_repair in mobile_repairs %}
+<div class="col-lg-4 mb-5">
+    <div class="card h-100 shadow border-0">
+
+      {% if phone_repair.avatar %}
+      <img class="card-img-top" src="{{ phone_repair.avatar.url }}" style="height: 250px;" alt="..." />
+      {% else %}
+  <p>ÜRün Resmi Bulunmamaktadır</p>
+    {% endif %}
+        <div class="card-body p-4">
+            <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_repair.label}}</div>
+            <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Repair_Details' phone_repair.id %}"><div class="h5 card-title mb-3">{{ phone_repair.phone_brand }}-{{ phone_repair.phone_model }}</div></a>
+            <p class="card-text mb-0">{{ phone_repair.comment |truncatechars:205}}</p>
+        </div>
+        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+            <div class="d-flex align-items-end justify-content-between">
+                <div class="d-flex align-items-center">
+                    {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                    <div class="small align-items-start">
+                      <div class="fw-bold" style="text-transform: uppercase;">{{ phone_repair.author_full_name |truncatechars:8}}</div>
+                      <div class="text-muted">{{ phone_repair.created_date|date:"d.m.Y"}}</div>
+                    </div>
+                    
+                    <div class="small align-items-end" style="margin-left:135px">
+                      <div class="fw-bold">{{ phone_repair.city|truncatechars:12 }}</div>
+                      <div class="text-muted">{{ phone_repair.district|truncatechars:12 }}</div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+{% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+{% endfor %}
+    {% endif %}
+    {% if phone_sales %}
+
+
+    {% for phone_sale in phone_sales %}
+    <div class="col-lg-4 mb-5">
+        <div class="card h-100 shadow border-0">
+
+          {% if phone_sale.avatar %}
+          <img class="card-img-top" src="{{ phone_sale.avatar.url }}" style="height: 250px;" alt="..." />
+          {% else %}
+      <p>ÜRün Resmi Bulunmamaktadır</p>
+        {% endif %}
+            <div class="card-body p-4">
+                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_sale.label}}</div>
+               <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_sale.price}}&nbsp;TL</div>
+
+                <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Sales_Details' phone_sale.id %}"><div class="h5 card-title mb-3">{{ phone_sale.phone_brand }}-{{ phone_sale.phone_model }}</div></a>
+                <p class="card-text mb-0">{{ phone_sale.comment |truncatechars:205}}</p>
+            </div>
+            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="d-flex align-items-center">
+                        {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                        <div class="small align-items-start">
+                          <div class="fw-bold" style="text-transform: uppercase;">{{ phone_sale.author_full_name |truncatechars:8}}</div>
+                          <div class="text-muted">{{ phone_sale.created_date|date:"d.m.Y"}}</div>
+                        </div>
+                        
+                        <div class="small align-items-end" style="margin-left:135px">
+                          <div class="fw-bold">{{ phone_sale.city|truncatechars:12 }}</div>
+                          <div class="text-muted">{{ phone_sale.district|truncatechars:12 }}</div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    {% comment %} <p>Kullanıcı hiç telefon ilanı Oluşturmamış.</p> {% endcomment %}
+{% endfor %}
+    {% endif %}
+    {% if phone_parts %}
+    {% for phone_part in phone_parts %}
+    <div class="col-lg-4 mb-5">
+        <div class="card h-100 shadow border-0">
+
+          {% if phone_part.avatar %}
+          <img class="card-img-top" src="{{ phone_part.avatar.url }}" style="height: 250px;" alt="..." />
+          {% else %}
+      <p>ÜRün Resmi Bulunmamaktadır</p>
+        {% endif %}
+            <div class="card-body p-4">
+                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_part.label}}</div>
+                <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_part.price}}&nbsp;TL</div>
+                <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Part_Details' phone_part.id %}"><div class="h5 card-title mb-3">{{ phone_part.part_name }}</div></a>
+                <p class="card-text mb-0">{{ phone_part.comment |truncatechars:205}}</p>
+            </div>
+            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="d-flex align-items-center">
+                        {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                        <div class="small align-items-start">
+                          <div class="fw-bold" style="text-transform: uppercase;">{{ phone_part.author_full_name |truncatechars:8}}</div>
+                          <div class="text-muted">{{ phone_part.created_date|date:"d.m.Y"}}</div>
+                        </div>
+                        
+                        <div class="small align-items-end" style="margin-left:135px">
+                          <div class="fw-bold">{{ phone_part.city|truncatechars:12 }}</div>
+                          <div class="text-muted">{{ phone_part.district |truncatechars:12}}</div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    {% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+{% endfor %}
+    {% endif %}
+    {% if phone_aksesuars %}
+    {% for phone_aksesuar in phone_aksesuars %}
+    <div class="col-lg-4 mb-5">
+        <div class="card h-100 shadow border-0">
+    
+          {% if phone_aksesuar.avatar %}
+          <img class="card-img-top" src="{{ phone_aksesuar.avatar.url }}" style="height: 250px;" alt="..." />
+          {% else %}
+      <p>ÜRün Resmi Bulunmamaktadır</p>
+        {% endif %}
+            <div class="card-body p-4">
+                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_aksesuar.label}}</div>
+                <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_aksesuar.price}}&nbsp;TL</div>
+                <a class="text-decoration-none link-dark stretched-link" href="{% url  'advert:Phone_Aksesuar_Details' phone_aksesuar.id %}"><div class="h5 card-title mb-3">{{ phone_aksesuar.aksesuar_name }}</div></a>
+                <p class="card-text mb-0">{{ phone_aksesuar.comment |truncatechars:205}}</p>
+            </div>
+            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="d-flex align-items-center">
+                        {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                        <div class="small align-items-start">
+                          <div class="fw-bold" style="text-transform: uppercase;">{{ phone_aksesuar.author_full_name |truncatechars:13}}</div>
+                          <div class="text-muted">{{ phone_aksesuar.created_date|date:"d.m.Y"}}</div>
+                        </div>
+                        
+                        <div class="small align-items-end" style="margin-left:135px">
+                          <div class="fw-bold">{{ phone_aksesuar.city |truncatechars:12}}</div>
+                          <div class="text-muted">{{ phone_aksesuar.district|truncatechars:12 }}</div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    {% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+    {% endfor %}
+    {% endif %}
+
+
+</section>
+   <!-- card bitiş--> 
+    {% endblock body %}

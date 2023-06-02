@@ -1,0 +1,54 @@
+
+{% extends 'base/base.html' %}
+{% block body %}
+
+
+<hr class="mt-5">
+<header class="bg-dark py-5 container shadow border-0">
+                <div class=" px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 class="display-5 fw-bolder text-white mb-2">İşlerinizi ucuzcebim.com ile modernleştirin.</h1>
+                                <p class="lead fw-normal text-white-50 mb-4">Kolay bir şekilde telefonunu tamir et, ilan ver, fiyat al, telefonunu sat...</p>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    {% comment %} <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Başlayın...</a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="#!">Daha fazla bilgi edin</a> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://media.istockphoto.com/id/1050749470/tr/vekt%C3%B6r/cep-telefonu-tamir-ediyorum-beyaz-arka-plan-%C3%BCzerinde-ger%C3%A7ek%C3%A7i-modern-cep-telefonu-vekt%C3%B6r.jpg?s=170667a&w=0&k=20&c=3uKnLetS7Qx3s1BkCvZDIGlbxw2VoqMA4KPGTgPeHWU=" alt="..." /></div>
+                    </div>
+                </div>
+            </header>
+
+
+                {% include 'home/product.html' %}
+                    {% comment %} <style>
+                        .pagination-container {
+                            display: flex;
+                            justify-content: center;
+                            margin-top: 20px;
+                          }
+                          
+                    </style>
+<nav aria-label="Page navigation example" class="pagination-container" >
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> {% endcomment %}
+
+
+{% endblock body %}

@@ -1,0 +1,133 @@
+
+{% extends 'baseuser/base.html' %}
+{% block body %}
+
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            <a href="{% url 'home:index' %}" class="text-decoration-none">ucuzcebim<span class="text-primary">.com</span></a>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+           Online dükkanımızda, en iyi hizmeti sunmak için sürekli çalışıyoruz ve sizin memnuniyetiniz her zaman önceliğimizdir.
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <span class="text-primary text-center mt-3">ÜYE OL</span>
+            <div class="card-body py-5 px-md-5">
+              <form method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger">
+                  {{error}}
+              </div>
+              {% endif %}
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text"  placeholder="AD" name="firstname" class="form-control" />
+                      <!--  <label class="form-label" for="form3Example1">First name</label>-->
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text"  placeholder="SOYAD"  name="lastname"  class="form-control" />
+                      <!--  <label class="form-label" for="form3Example2">Last name</label>-->
+                    </div>
+                  </div>
+                </div>
+
+                <!--  2 column grid layout with text inputs for the Email and Username input -->
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text"  placeholder="E-POSTA" name="email" class="form-control" />
+                      <!--  <label class="form-label" for="form3Example1">Email name</label>-->
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text"  placeholder="KULLANICI ADI"  name="username" class="form-control" />
+                      <!--  <label class="form-label" for="form3Example2">Last name</label>-->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2 column grid layout with text inputs for the Password and Repassword input -->
+ 
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="password" placeholder="ŞİFRE" name="password"  class="form-control" />
+                      <!--  <label class="form-label" for="form3Example1">password name</label>-->
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="password"   placeholder="ŞİFRE-TEKRAR" name="repassword" class="form-control" />
+                      <!--  <label class="form-label" for="form3Example2">Last name</label>-->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Checkbox 
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribe to our newsletter
+                  </label>
+                </div>-->
+
+                <!-- Submit button -->
+                <div class="d-flex align-items-center justify-content-between">
+                  <button type="submit" class="btn btn-primary btn-block mb-4">Kayıt Oluştur</button>
+                  <h6> <a href="{% url 'user:Login' %}" class="text-decoration-none">Zaten bir hesabım var.</a></h6>
+                </div>
+                
+              
+
+                <!-- Register buttons -->
+                 <div class="text-center">
+                  <p>
+            Bizi Takip Edin
+            <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa fa-heart" style="color:red"></i>
+                  </button>
+                  </p>
+                   <!-- Checkbox 
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa fa-snapchat"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa fa-google"></i>
+                  </button>
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fa fa-twitter"></i>
+                  </button>
+buttons -->
+
+
+
+                    <a href="https://www.instagram.com/ucuzcebimcom/" class="text-decoration-none btn btn-link btn-floating mx-1" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+{% endblock body %}

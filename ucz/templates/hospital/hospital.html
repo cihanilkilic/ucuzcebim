@@ -1,0 +1,265 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<hr>
+<!--Ürün Açıklaması Ürün Özellikleri  Yorumlar BAŞLANGIÇ -->
+<nav class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav nav-tabs " id="nav-tab" role="tablist">
+        <button class="nav-link active  text-white col-md-4 col-4"  id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"  style="background: rgb(34,193,195);
+      background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);">Telefon Tamir İlanları</button>
+
+        <button class="nav-link col-md-4 col-4 text-white " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+style="background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+">Telefon Tamir Onay Ekranı</button>
+
+
+
+        <button class="nav-link  col-md-4 col-4 text-white    " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-okey" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+style="background:background-color: #00DBDE;
+background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);"
+
+
+        >Tamir Edilmiş Telefonları Teslim Et</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="tab-content mb-5" id="nav-tabContent">
+  <!-- 1 Başlangıç -->
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+      <!-- BİRİNCİ TABLO başlangıç -->
+    <div class="col-md-12 mb-2 ">
+      <div class="card shadow border-0">
+
+<div class="card-body ">
+<div style="max-height: 400px; overflow-y: auto;">
+  <table class="table table-striped  table-hover thead-fixed " style="background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);" >
+    <thead style="position: sticky;top: 0" class="thead " >
+     
+      <tr style="background: rgb(34,193,195); 
+      background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);" class="text-center" >
+        <th>İl</th>
+        <th>İlçe</th>
+        <th>Marka-Model</th>
+        <th>İlan Tarihi</th>
+        <th>İlana Git</th>
+
+      </tr>
+    </thead>
+    <tbody  class="text-center" >
+      <!-- Örnek veriler -->
+     {% if phone_repairs %}
+      {% for phone_repair in phone_repairs %}
+
+      <tr style="text-transform: uppercase;">
+
+        <td>{{phone_repair.city}}</td>
+        <td>{{phone_repair.district}}</td>
+        <td>{{phone_repair.phone_brand}}-{{phone_repair.phone_model}}</td>
+        <td >{{phone_repair.created_date}}</td>
+
+        <td ><a href="{% url 'advert:Phone_Repair_Details' phone_repair.id %}"  class="btn btn-primary">Git</a></td>
+
+      </tr>
+      {% endfor %}
+      
+      {% else %}
+      </tr>
+      <tr>
+      
+      <td class="bg-danger text-white text-center ">Telefon Tamir İlan Listesi Boş</td>
+    </tr>
+      
+      
+      {% endif %}
+
+
+      <!-- Verileri buraya ekleyebilirsiniz -->
+    </tbody>
+
+  </table>
+</div>
+</div>
+</div>    
+    </div>
+<!-- BİRİNCİ TABLO BİTİŞ -->
+              <!--<a href="#" class="btn btn-primary">Anasayafaya Git</a>--> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 1 Bitiş -->
+
+  <!-- 2 Başlangıç -->
+  <div class="tab-pane fade mb-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-12 ">
+          <div class="card ">
+            <div class="card-body">
+   <!-- 2 TABLO başlangıç -->
+<div class="col-md-12 mb-2">
+  <div class="card shadow border-0">
+
+<div class="card-body">
+<div style="max-height: 400px; overflow-y: auto;">
+<table class="table table-striped  table-hover thead-fixed" style="background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+">
+<thead style="position: sticky;top: 0;" class="thead" >
+  <tr style="background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  "  class="text-center">
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>Marka-Model</th>
+    <th>Kayıt Tarihi</th>
+    <th>İstek Süreci</th>
+  </tr>
+</thead>
+<tbody  class="text-center">
+  <!-- Örnek veriler -->
+  {% for wait in waits %}
+  <tr style="text-transform: uppercase;">
+    <td>{{wait.city}}</td>
+    <td>{{wait.district}}</td>
+    <td>{{wait.phone_brand}}-{{wait.phone_model}}</td>
+    <td>{{wait.created_date}}</td>
+    {% if wait.acceptance  %}
+<td class="text-white h6" style="background:#3FFF00"><p>ONAYLANDI</p></td>
+{% else %}
+<td class=" text-white text-center" style="background: #FF0800"><p class="h6">BEKLENİYOR</p></td>
+
+{% endif %}
+  </tr>
+  {% endfor %}
+
+  <!-- Verileri buraya ekleyebilirsiniz -->
+</tbody>
+
+</table>
+</div>
+</div>
+</div>    
+</div>
+<!-- 2 TABLO BİTİŞ -->
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+  <!-- 2 Bitiş -->
+
+  <!-- 3 Başlangıç -->
+  <div class="tab-pane fade mb-5" id="nav-okey" role="tabpanel" aria-labelledby="nav-okey-tab" tabindex="0">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-12 ">
+          <div class="card ">
+            <div class="card-body">
+          
+
+    <!-- 3 başlangıç -->
+<div class="col-md-12 mb-5">
+      <div class="card shadow border-0">
+
+<div class="card-body">
+<div style="max-height: 200px; overflow-y: auto;">
+  <table class="table table-striped  table-hover thead-fixed" style="background:background-color: #00DBDE;
+  background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);
+  ">
+    <thead style="position: sticky;top: 0" class="thead" >
+      <tr style="background-color: #00DBDE;
+      background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);
+      "  class="text-center">
+        <th>İl-İlçe</th>
+        <th >Marka-Model</th>
+        <th>İsim-Soyisim</th>
+        <th>Teslim Et</th>
+        <th>Sahip Onay</th>
+      </tr>
+    </thead>
+    <tbody >
+      <!-- Örnek veriler -->
+      {% if jobfinish_ %}
+      {% for jobfinish in jobfinish_ %}
+      <tr  class="text-center" style="text-transform: uppercase;">
+        <td>{{jobfinish.city}}-{{jobfinish.district}}</td>
+
+        <td>{{jobfinish.phone_brand}}-{{jobfinish.phone_model}}</td>
+        <td style="text-transform: uppercase;"><a href="{% url 'user:Profil' jobfinish.receiver.id %}"  class="text-decoration-none text-white"> {{ jobfinish.receiver.first_name }} {{ jobfinish.receiver.last_name }} </a></td>
+        {% if jobfinish.jobfinish_business == False %}
+        <td><a href="{% url 'hospital:Jobfinish_Business' jobfinish.product jobfinish.receiver.id %}"  class="btn  text-white" style="background:#C32BAC">ONAYLA</a></td>
+        {% else %}
+        <td class="text-white" style="background:#3CD500">ONAY İLETİLDİ</td>
+       
+        {% endif %}
+        {% if jobfinish.jobfinish %}
+        <td class="text-white text-center h6" style="background:#3FFF00">ONAYLANDI</td>
+        {% else %}
+        
+        <td class="text-white text-center h6" style="background: #FF0800">BEKLENİYOR</td>
+        
+        {% endif %}
+ 
+ 
+      </tr>
+
+      {% endfor %}
+      {% else %}
+      <tr> 
+        <td class="text-white text-center " style="background: #FF0800">TAMİR EDİLMİŞ TELEFON LİSTESİ BOŞ</td>
+        
+      </tr>
+
+     
+      {% endif %}
+      <!-- Verileri buraya ekleyebilirsiniz -->
+    </tbody>
+
+  </table>
+</div>
+</div>
+</div>
+</div>
+    <!-- 3 bitiş -->
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+  <!-- 3 Bitiş -->
+</div>
+
+  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#inputDate').on('mousedown', function(e) {
+      e.preventDefault();
+    });
+  });
+  
+  
+</script>
+
+
+{% endblock body %}

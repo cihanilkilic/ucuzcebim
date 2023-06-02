@@ -1,0 +1,216 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+
+<style>
+    .chat-container {
+        height: 400px;
+        overflow-y: scroll;
+    }
+
+    .message-container {
+        margin-bottom: 10px;
+    }
+
+    .message-bubble {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .outgoing {
+        background-color: #DCF8C6;
+        align-self: flex-end;
+    }
+
+    .incoming {
+        background-color: #F5F8FA;
+        align-self: flex-start;
+    }
+
+    .message-info {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #999;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-name {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+    .active-user {
+        background-color: #DCF8C6;
+    }
+
+    .message-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .modal-dialog {
+        max-width: auto;
+    }
+
+    .list-group {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+</style>
+
+<div style="margin-bottom: 59px;"></div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-2">
+            <div class="card shadow border-0">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Kullanıcılar</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for user, full_name in users %}
+                    <li class="list-group-item {% if user.id == receiver.id %}active-user{% endif %}">
+                        <div class="user-info">
+                            <img src="https://t3.ftcdn.net/jpg/05/14/18/46/360_F_514184651_W5rVCabKKRH6H3mVb62jYWfuXio8c8si.jpg"
+                                class="user-avatar" alt="User Avatar">
+                            <div class="user-name">
+                                <h6 class="mb-1">
+                                    <a href="{% url 'chat:messages' user.id %}" style="text-transform: uppercase;"
+                                        class="text-decoration-none">
+                                        {{ full_name }}
+                                    </a>
+                                </h6>
+                                {% comment %} <p class="text-muted mb-0">{{ user.email }}</p> {% endcomment %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-8 mb-3">
+            {% if receiver %}
+            <div class="card shadow border-0">
+                <div class="card-header">
+                    <a class="small text-decoration-none" href="{% url 'user:Profil' receiver.id %}"
+                        style="text-transform: uppercase;">
+                        <h5 class="card-title text-center">{{ receiver.username }}</h5>
+                    </a>
+                </div>
+                <div class="card-body chat-container" id="chat-container">
+                    {% for message in conversations %}
+                    {% if message.sender == user %}
+                    <div class="message-container outgoing">
+                        <div class="message-bubble">
+                            <p>{{ message.content }}</p>
+                            {% if message.image %}
+                            <img src="{{ message.image.url }}" alt="Sent Image" class="message-image"
+                                data-toggle="modal" data-target="#imageModal{{ message.id }}">
+                            <div class="modal fade" id="imageModal{{message.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="imageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img src="{{ message.image.url }}" alt="{{ message.content }}"
+                                                style="max-width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="message-info">
+                            <span class="message-timestamp">{{ message.timestamp }}</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="message-container incoming">
+                        <div class="message-bubble">
+                            <p>{{ message.content }}</p>
+                            {% if message.image %}
+                            <img src="{{ message.image.url }}" alt="Received Image" class="message-image"
+                                data-toggle="modal" data-target="#imageModal{{ message.id }}">
+
+                            <div class="modal fade" id="imageModal{{ message.id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="imageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img src="{{ message.image.url }}" alt="{{ message.content }}"
+                                                style="max-width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="message-info">
+                            <span class="message-sender">{{ message.sender }}</span>
+                            <span class="message-timestamp">{{ message.timestamp }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <form method="POST" enctype="multipart/form-data" class="message-input">
+                    {% csrf_token %}
+                    <input type="hidden" name="receiver" value="{{ receiver.id }}">
+                    <div class="input-group">
+                        <textarea name="content" class="form-control" placeholder="Mesajınızı yazın..."
+                            rows="3"></textarea>
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </div>
+                    <div class="mt-2 mb-3">
+                        <input type="file" class="form-control" name="image" id="image" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="card shadow border-0"
+                style="height: calc(100vh - 100px); display: flex; align-items: center;">
+                <div class="card-body text-center">
+                    <p class="card-text">Sohbet başlatmak için bir kullanıcı seçin.</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/6592/6592682.png" class="card-img-top"
+                        alt="No User Selected">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    // Automatically scroll to the bottom of the chat container
+    function scrollToBottom() {
+        var chatContainer = document.getElementById('chat-container');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    // Call scrollToBottom when the page loads to ensure the chat is scrolled to the bottom
+    window.addEventListener('load', scrollToBottom);
+
+    // Call scrollToBottom after a new message is sent to scroll to the latest message
+    document.querySelector('.message-input').addEventListener('submit', scrollToBottom);
+
+    // Show chat body when a user is selected
+    document.querySelector('.list-group-item').addEventListener('click', function () {
+        document.querySelector('.card-body').style.display = 'block';
+    });
+</script>
+
+{% endblock body %}

@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% block body %}
+<hr style="margin-top:45px;">
+
+<header class=" py-5 container shadow-sm border-0 rounded ">
+    <div class="px-md-5">
+        <h1 class="text-center mb-5">Şartlar ve Koşullar</h1>
+
+        <h2>Kabul Edilme</h2>
+      
+        <p>Web sitemizi ziyaret ederek veya hizmetlerimizi kullanarak, aşağıdaki şartları ve koşulları kabul etmiş sayılırsınız. Bu şartlar ve koşulları kabul etmiyorsanız, web sitemizi kullanmayınız.</p>
+      
+        <h2>Fikri Mülkiyet Hakları</h2>
+      
+        <p>Web sitemizdeki tüm içerik, telif hakları ve diğer fikri mülkiyet haklarıyla korunmaktadır. İzinsiz olarak kopyalanması, dağıtılması veya kullanılması yasaktır.</p>
+      
+        <h2>Hizmetlerin Kullanımı</h2>
+      
+        <p>Hizmetlerimizi yasal amaçlarla ve ilgili yasaları ihlal etmeden kullanmanız gerekmektedir. Hizmetlerimizin kötüye kullanılması, başkalarının haklarını ihlal etmesi veya yasa dışı faaliyetlerde bulunulması yasaktır.</p>
+      
+        <h2>İptal ve Geri Ödeme</h2>
+      
+        <p>Ücretli hizmetlerimizle ilgili iptal ve geri ödeme politikaları ayrı bir sözleşmeye tabidir. Lütfen ilgili sözleşmeyi inceleyiniz.</p>
+      
+        <h2>Bağlantılar</h2>
+      
+        <p>Web sitemiz, diğer web sitelerine bağlantılar içerebilir. Bu bağlantılar yalnızca referans amaçlıdır. Bağlantı verilen web sitelerinin içerik ve politikalarından sorumlu değiliz.</p>
+      
+        <h2>Sorumluluk Reddi</h2>
+      
+        <p>Hizmetlerimizin kullanımından kaynaklanan herhangi bir zarar veya kayıp için sorumluluk kabul etmemekteyiz. Hizmetlerimizi kendi riskinizde kullanmanız gerekmektedir.</p>
+      
+        <h2>Gizlilik Politikası</h2>
+      
+        <p>Web sitemizin gizlilik politikasını okumak için lütfen <a href="{% url 'home:Security' %}" class="text-decoration-none">buraya</a> tıklayınız.</p>
+      
+        <h2>Değişiklikler</h2>
+      
+        <p>Şartlar ve koşullarımızı zaman zaman güncelleyebiliriz. Bu sayfayı düzenli olarak kontrol etmenizi öneririz.</p>
+      
+        <h2>İletişim</h2>
+      
+        <p>Şartlar ve koşullarımızla ilgili herhangi bir sorunuz varsa, lütfen bize <a href="{% url 'home:Contact_Form' %}" class="text-decoration-none">iletişim</a>  kısmından ulaşın.</p>
+    </div>
+</header>
+
+{% endblock body %}

@@ -1,0 +1,620 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container-fluid px-4 px-lg-5  border-0" style="margin-top: 65px;">
+{% if user.is_active %}
+{% comment %} var ise {% endcomment %}
+{% else %}
+<div class="alert alert-warning text-center" role="alert">
+    İlan Verebilmek için Profil Düzenle Kısmından Form Bilgilerinizi Giriniz...
+  </div>
+{% endif %}
+
+
+            
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <div class="card shadow border-0">
+          <div class="card-body">
+                      <div class="rounded-top text-white d-flex flex-row" style="background: linear-gradient(to top left, #9900ff 0%, #ff3300 100%); height:200px;">
+              <div class="ms-4 mt-5 d-flex flex-column " style="width: 150px;">
+
+                {% if user.is_active %}
+                <img src="{{user.avatar.url}}" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 " style="max-width: 150px; max-height: 150px; z-index: 1">
+                {% else %}
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTdmrjoiXGVFEcd1cX9Arb1itXTr2u8EKNpw&usqp=CAU"
+                alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                style="width: 150px; height: 150px; z-index: 1">
+                {% endif %}
+
+                <!-- yeni kullanıcıya profil düzelttirme -->
+                  <div class="text-black" style="background-color: #f8f9fa;">
+                    <div class="d-flex justify-content-between text-center py-1">
+                    {% if  user.is_active  %}
+                    {% if request.user.id == user.author.id %}
+                      <div>
+                        <p class="mb-1 mt-4 h5"></p>
+                        <p class="small text-muted-info mb-0"><a class=" small text-decoration-none"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap" href="#!">Profil Güncelle</a></p>
+                        {% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                          Modal 2'yi Aç
+                        </button> {% endcomment %}
+                      </div>
+                      <div class="px-3">
+                        <p class="mb-1 h5 mt-4"></p>
+                        <p class="small text-muted mb-0"><a class=" small text-decoration-none "data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@getbootstrap" href="#!">İlan Ver</a></p>
+                      </div>
+                      {% endif %}
+                    {% else %}
+                    <div>
+                      <p class="mb-1 mt-4 h5"></p>
+                      <p class="small text-muted-info mb-0"><a class=" small text-decoration-none"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap" href="#!">Profil<br>  Düzenle</a></p>
+                      {% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                        Modal 2'yi Aç
+                      </button> {% endcomment %}
+                    </div>
+                    {% endif %}
+                    {% if user.is_staff %}
+                    {% if request.user.id == user.author.id %}
+                    <div class="px-3">
+                      <p class="mb-1 h5 mt-4"></p>
+                      <p class="small text-muted-info mb-0"><a class=" small text-decoration-none"  href="{% url 'hospital:MobileRepair_Request' %}">Cep Hastanesi</a></p>
+                    </div>
+                    {% endif %}
+                    
+                    {% else %}
+                    {% if request.user.id == user.author.id %}
+                    <div class="px-3">
+                      <p class="mb-1 h5 mt-4"></p>
+                      <p class="small text-muted-info mb-0"><a class=" small text-decoration-none"  href="{% url 'hospital:Garage' %}">Tamir<br>hanem</a></p>
+                    </div>
+                    {% endif %}
+                    
+                    {% endif %}
+                    </div>
+                  </div>
+                <!-- yeni kullanıcıya profil düzelttirme -->
+              </div>
+
+
+
+
+
+              <div class="ms-3" style="margin-top: 130px;">
+                {% if user %}
+                <h5 style="text-transform: uppercase;">{{user.author.get_full_name}}</h5>
+                {% endif %}
+                <!-- user/profil.html -->
+                {% if user.is_staff %}
+                    <!-- is_staff True ise buradaki içerik görüntülenir -->
+                    <p>İşletme Hesabı</p>
+                    <!-- Diğer içerikler -->
+                {% else %}
+                    <!-- is_staff False ise buradaki içerik görüntülenir -->
+                    <p>Kişisel Hesap</p>
+                    <!-- Diğer içerikler -->
+                {% endif %}
+              </div>
+            </div>
+            <div class="p-4 text-black" style="background-color: #f8f9fa;">
+              <div class="d-flex justify-content-end text-center py-1">
+                {% if user %}
+                {% if user.is_staff %}
+                <div class="px-3">
+                  <p class="mb-1 h5">{{jobfinish_business_count}}</p>
+                  <p class="small text-muted mb-0">Tamir<br>Sayısı</p>
+              </div>
+                {% comment %} <div>
+                    <p class="mb-1 h5">{{user.views}}</p>
+                    <p class="small text-muted mb-0">Ziyaret<br>Sayısı</p>
+                </div> {% endcomment %}
+                <div class="px-3">
+                  <p class="mb-1 h5">{{all_count}}</p>
+                  <p class="small text-muted mb-0">İlan<br>Sayısı</p>
+              </div>
+                {% else %}
+                <div class="px-3">
+                  <p class="mb-1 h5">{{all_count}}</p>
+                  <p class="small text-muted mb-0">İlan<br>Sayısı</p>
+              </div>
+                {% endif %}
+
+                {% else %}
+                
+                <div>
+                    <p class="mb-1 h5">--</p>
+                    <p class="small text-muted mb-0">Görüntülenme<br>Sayısı</p>
+                  </div>
+                  <div class="px-3">
+                    <p class="mb-1 h5">--</p>
+                    <p class="small text-muted mb-0">İlan<br>Sayısı</p>
+                  </div>
+   
+                
+                {% endif %}
+        
+              </div>
+      {% if  user.is_active  %}
+      {% if request.user.id != user.author.id %}
+      <a class="small text-decoration-none btn btn-outline-primary ms-1 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" href="#!">Mesaj Gönder
+        <i class="bi bi-envelope-open"></i>
+      </a>
+      {% endif %}
+      {% else %}
+      {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+
+
+
+      
+      <div class="col-md-6 ">
+        <div class="card shadow border-0">
+          <div class="card-body">
+           
+  <nav class="container-fluid">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Hakkında</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Soru-Cevap</button>
+      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Değerlendirme</button>
+    </div>
+  </nav>
+  <!-- birincisi başlangıç -->
+  <div class="tab-content " id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+    <div class="card-body">
+    <!-- hakkında başlangıç-->
+
+<!-- address telefon iş başlangıç-->
+  <div class="card mb-2  border-0">
+    <div class="card-body">
+
+
+      <div class="row">
+        {% comment %} <div class="col-sm-4 col-4">
+          <p class="mb-0">S.Medya</p>
+        </div> {% endcomment %}
+        {% if user.social_media_facebook %}
+          <div class="col-2 col-md-2 mb-1 ">
+            <a href="{{user.social_media_facebook}}"  target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="150" height="25" fill="currentColor" class="bi bi-facebook"
+              viewBox="0 0 16 16">
+              <path
+                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+            </svg>
+            </a>
+        </div>
+        {% endif %}
+
+
+        {% if user.social_media_twitter %}
+        <div class="col-2 col-md-2 mb-1">
+          <a href="{{ user.social_media_twitter }}"  target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="25" fill="currentColor" class="bi bi-twitter"
+              viewBox="0 0 16 16">
+              <path
+                d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+            </svg>
+          </a>
+        </div>
+        {% endif %}
+
+        {% if user.social_media_instagram %}
+      <div class="col-2 col-md-2 mb-1">
+        <a href="{{user.social_media_instagram}}"  target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg"  width="150" height="25" fill="currentColor"
+            class="bi bi-instagram" viewBox="0 0 16 16">
+            <path
+              d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+          </svg>
+        </a>
+    </div>
+    {% endif %}
+
+    {% if user.social_media_tiktok %}
+
+    <div class="col-2 col-md-2 mb-1">
+      <a href="{{user.social_media_tiktok}}"  target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="25" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+          <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z"/>
+        </svg>
+      </a>
+      </div>
+      </div>
+      {% endif %}
+
+
+      <hr>
+
+<!-- Adresler Başlangıç-->
+      
+      <div class="row">
+        <div class="col-3 col-sm-3">
+          <p class="mb-0">İş</p>
+        </div>
+        <div class="col-9  col-sm-9">
+          {% if user.office_phone == None%}
+          {% else %}
+          <p class="text-muted mb-0">{{user.office_phone}}</p>
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3 col-sm-3">
+          <p class="mb-0">Cep</p>
+        </div>
+        <div class="col-9  col-sm-9">
+          {% if user.mobile_phone == None%}
+          {% else %}
+          <p class="text-muted mb-0">{{user.mobile_phone}}</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      {% if user.is_staff %} 
+      <hr>
+      <div class="row">
+        <div class="col-3 col-sm-3">
+          <p class="mb-0">Adres</p>
+        </div>
+        <div class="col-9  col-sm-9">
+          <p class="text-muted mb-0">{{user.address}}</p> 
+        </div>
+      </div>
+      {% endif %}
+
+      <hr>
+      <div class="row">
+        {% if user.biography %} 
+
+        <div class="col-3 col-sm-3">
+          <p class="mb-0">Açıklama</p>
+        </div>
+        <div class="col-9  col-sm-9">
+          <p class="text-muted mb-0">{{user.biography}}</p> 
+        </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+<!-- address telefon iş bitis-->
+    <!-- hakkında bitişi-->
+  </div>
+</div>
+
+</div>
+  <!-- birincisi bitiş -->
+
+    <!-- 2 Başlangıç -->
+    <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+      <div class="container-fluid">
+        <div class="row ">
+          <div class="col-md-12 ">
+            <div class="card border-0">
+              <div class="card-body">
+                
+                <div class="d-flex justify-content-center text-danger">
+                  <div class="spinner-border " style="margin-right:5px" role="status"></div>
+                  <p>Görünteleyecek içerik bulunamıyor.</p>
+                </div>
+                
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+    <!-- 2 Bitiş -->
+    <!-- 3 Başlangıç -->
+    <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+      <div class="container-fluid">
+        <div class="row ">
+          <div class="col-md-12 ">
+            <div class="card border-0">
+              <div class="card-body">
+            
+                <div class="d-flex justify-content-center  text-danger">
+                  <div class="spinner-border" style="margin-right:5px" role="status"></div>
+                  <p>Görünteleyecek içerik bulunamıyor.</p>
+                </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <!-- 3 Bitiş -->
+
+  
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+
+<!-- profil message modal başlangıç-->
+<div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start mt-3">
+  <!--<a class="btn btn-outline-info btn-lg px-4" href="#!">Profili Düzenle</a>-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+       {% if  request.user.is_authenticated %}
+       <div class="alert alert-info  w-100 text-center" role="alert">
+      <a  class="alert-link text-decoration-none"style="text-transform: uppercase;">{{user.author.get_full_name}}</a>
+      </div>
+       {% else %} 
+       <h1 class="modal-title fs-5 " id="exampleModalLabel">
+        <a href="{% url 'user:Login' %}" class="text-decoration-none">Mesajlaşmak için oturum açın...</a>
+       </h1>
+       {% endif %}
+      
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+     </div>
+     {% include 'user/profil_message_modal.html' %}
+
+   </div>
+ </div>
+</div>
+
+</div>
+<!-- profil message modal bitiş-->
+
+  
+
+
+  <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start mt-3">
+   <!--<a class="btn btn-outline-info btn-lg px-4" href="#!">Profili Düzenle</a>-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if user %}
+        {% comment %} <h1 class="modal-title fs-5 " id="exampleModalLabel">Güncelleme Ekranı</h1> {% endcomment %}
+        {% else %} 
+        <h1 class="modal-title fs-5 " id="exampleModalLabel">İlan Verebilmek İçin Formu Doldurunuz</h1>
+        {% endif %}
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% include 'user/profil_kayit_modal.html' %}
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if user %}
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">Güncelleme Ekranı</h1>
+        {% else %} 
+        {% comment %} <h1 class="modal-title fs-5 " id="exampleModalLabel2">İlan Verebilmek İçin Formu Doldurunuz2</h1> {% endcomment %}
+        {% endif %}
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% include 'user/profil_kayit_düzenle_modal.html' %}
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ilan sayfası modal başlangıç-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if user %}
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">ilan sayfası</h1>
+        {% else %} 
+        {% comment %} <h1 class="modal-title fs-5 " id="exampleModalLabel2">İlan Verebilmek İçin Formu Doldurunuz2</h1> {% endcomment %}
+        {% endif %}
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% include 'adverts/advert_panel.html' %}
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ilan sayfası modal bitiş-->
+
+
+    </div>
+
+      </div>
+  </div>
+  <!-- Call to Action-->
+
+  <!-- Content Row-->
+
+</div>
+<!-- Blog preview section-->
+
+      <div class="container px-5  shadow border-0 mb-5">
+        <h2 class="fw-bolder fs-5 mb-4 text-center pt-4 text-primary">Tamir/Satılık Ürünler/Telefon Parçaları/Aksesuar</h2>
+          <div class="row gx-5">
+
+            {% for phone_sale in phone_sales %}
+              <div class="col-lg-4 mb-5">
+                  <div class="card h-100 shadow border-0">
+
+                    {% if phone_sale.avatar %}
+                    <img class="card-img-top" src="{{ phone_sale.avatar.url }}"   style="height: 250px;"alt="..." />
+                    {% else %}
+                <p>ÜRün Resmi Bulunmamaktadır</p>
+                  {% endif %}
+                      <div class="card-body p-4">
+                          <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_sale.label}}</div>
+                         <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_sale.price}}&nbsp;TL</div>
+
+                          <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Sales_Details' phone_sale.id %}"><div class="h5 card-title mb-3">{{ phone_sale.phone_brand }}-{{ phone_sale.phone_model }}</div></a>
+                          <p class="card-text mb-0">{{ phone_sale.comment |truncatechars:205}}</p>
+                      </div>
+                      <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                          <div class="d-flex align-items-end justify-content-between">
+                              <div class="d-flex align-items-center">
+                                  {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                                  <div class="small align-items-start">
+                                    <div class="fw-bold">{{ full_name }}</div>
+                                    <div class="text-muted">{{ phone_sale.created_date|date:"d.m.Y"}}</div>
+                                  </div>
+                                  
+                                  <div class="small align-items-end" style="margin-left:135px">
+                                    <div class="fw-bold">{{ phone_sale.city|truncatechars:12 }}</div>
+                                    <div class="text-muted">{{ phone_sale.district|truncatechars:12 }}</div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              {% empty %}
+              {% comment %} <p>Kullanıcı hiç telefon ilanı Oluşturmamış.</p> {% endcomment %}
+          {% endfor %}
+
+          {% for phone_repair in phone_repairs %}
+          <div class="col-lg-4 mb-5">
+              <div class="card h-100 shadow border-0">
+
+                {% if phone_repair.avatar %}
+                <img class="card-img-top" src="{{ phone_repair.avatar.url }}"  style="height: 250px;" alt="..." />
+                {% else %}
+            <p>ÜRün Resmi Bulunmamaktadır</p>
+              {% endif %}
+                  <div class="card-body p-4">
+                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_repair.label}}</div>
+                      <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Repair_Details' phone_repair.id %}"><div class="h5 card-title mb-3">{{ phone_repair.phone_brand }}-{{ phone_repair.phone_model }}</div></a>
+                      <p class="card-text mb-0">{{ phone_repair.comment |truncatechars:205}}</p>
+                  </div>
+                  <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                      <div class="d-flex align-items-end justify-content-between">
+                          <div class="d-flex align-items-center">
+                              {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                              <div class="small align-items-start">
+                                <div class="fw-bold">{{ full_name }}</div>
+                                <div class="text-muted">{{ phone_repair.created_date|date:"d.m.Y"}}</div>
+                              </div>
+                              
+                              <div class="small align-items-end" style="margin-left:135px">
+                                <div class="fw-bold">{{ phone_repair.city|truncatechars:12 }}</div>
+                                <div class="text-muted">{{ phone_repair.district|truncatechars:12 }}</div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% empty %}
+          {% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+      {% endfor %}
+
+
+   
+
+
+
+      {% for phone_part in phone_parts %}
+      <div class="col-lg-4 mb-5">
+          <div class="card h-100 shadow border-0">
+
+            {% if phone_part.avatar %}
+            <img class="card-img-top" src="{{ phone_part.avatar.url }}"  style="height: 250px;" alt="..." />
+            {% else %}
+        <p>ÜRün Resmi Bulunmamaktadır</p>
+          {% endif %}
+              <div class="card-body p-4">
+                  <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_part.label}}</div>
+                  <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_part.price}}&nbsp;TL</div>
+                  <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Part_Details' phone_part.id %}"><div class="h5 card-title mb-3">{{ phone_part.part_name }}</div></a>
+                  <p class="card-text mb-0">{{ phone_part.comment |truncatechars:205}}</p>
+              </div>
+              <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                  <div class="d-flex align-items-end justify-content-between">
+                      <div class="d-flex align-items-center">
+                          {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                          <div class="small align-items-start">
+                            <div class="fw-bold">{{ full_name }}</div>
+                            <div class="text-muted">{{ phone_part.created_date|date:"d.m.Y"}}</div>
+                          </div>
+                          
+                          <div class="small align-items-end" style="margin-left:135px">
+                            <div class="fw-bold">{{ phone_part.city|truncatechars:12 }}</div>
+                            <div class="text-muted">{{ phone_part.district |truncatechars:12}}</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {% empty %}
+      {% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+  {% endfor %}
+{% for phone_aksesuar in phone_aksesuars %}
+<div class="col-lg-4 mb-5">
+    <div class="card h-100 shadow border-0">
+
+      {% if phone_aksesuar.avatar %}
+      <img class="card-img-top" src="{{ phone_aksesuar.avatar.url }}"  style="height: 250px;" alt="..." />
+      {% else %}
+  <p>ÜRün Resmi Bulunmamaktadır</p>
+    {% endif %}
+        <div class="card-body p-4">
+            <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ phone_aksesuar.label}}</div>
+            <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ phone_aksesuar.price}}&nbsp;TL</div>
+            <a class="text-decoration-none link-dark stretched-link" href="{% url  'advert:Phone_Aksesuar_Details' phone_aksesuar.id %}"><div class="h5 card-title mb-3">{{ phone_aksesuar.aksesuar_name }}</div></a>
+            <p class="card-text mb-0">{{ phone_aksesuar.comment |truncatechars:205}}</p>
+        </div>
+        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+            <div class="d-flex align-items-end justify-content-between">
+                <div class="d-flex align-items-center">
+                    {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                    <div class="small align-items-start">
+                      <div class="fw-bold">{{ full_name }}</div>
+                      <div class="text-muted">{{ phone_aksesuar.created_date|date:"d.m.Y"}}</div>
+                    </div>
+                    
+                    <div class="small align-items-end" style="margin-left:135px">
+                      <div class="fw-bold">{{ phone_aksesuar.city |truncatechars:12}}</div>
+                      <div class="text-muted">{{ phone_aksesuar.district|truncatechars:12 }}</div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+{% comment %} <p>Kullanıcı hiç telefon tamir ilanı Oluşturmamış.</p> {% endcomment %}
+{% endfor %}
+          </div>
+     
+
+
+
+
+
+
+  
+{% endblock body %}

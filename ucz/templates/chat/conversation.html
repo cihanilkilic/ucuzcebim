@@ -1,0 +1,19 @@
+<h2>{{ receiver.username }}</h2>
+<ul>
+  {% for message in messages %}
+    {% if message.sender == user %}
+      <li><b>{{message.sender}} => {{ message.content }}</b></li>
+    {% else %}
+      <li>{{message.sender}} => {{ message.content }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'chat:conversation' receiver_id=receiver.id %}">
+  {% csrf_token %}
+  <div>
+    <label for="id_content">Message:</label>
+    <textarea name="content" id="id_content" required></textarea>
+  </div>
+  <input type="submit" value="Send">
+</form>

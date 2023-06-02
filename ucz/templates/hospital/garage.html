@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+<hr>
+
+<!-- başlangıç-->
+<div class="container-fluid ">
+  <div class="col-md-12 mb-2 mt-5 ">
+    <div class="card shadow border-0">
+      <div class="card-header " style="background-color: #00DBDE;
+      background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);
+      ">
+        <h5 class="card-title text-center">Telefon Tamir İstek Ekranı</h5>
+      </div>
+      <div class="card-body text-center" style="background-color: #00DBDE;
+      background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);
+      ">
+        <div style="max-height:500px; overflow-y: scroll;">
+          <table class="table table-striped table-hover thead-fixed">
+            <thead style="background-color: #00DBDE;
+            background-image: linear-gradient(270deg, #00DBDE 0%, #FC00FF 100%);
+            " class="thead">
+              <tr>
+                <th scope="col">İstek Atan</th>
+                <th scope="col">Marka-Model</th>
+                <th scope="col">Tarih</th>
+                <th scope="col">Onayla</th>
+                <th scope="col">Reddet</th>
+                <th scope="col">Tamir Edildi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Örnek veriler -->
+          {% if waits %}
+          {% for wait in waits %}
+              <tr>
+                <td style="text-transform: uppercase;"><a href="{% url 'user:Profil'  wait.request.sender.id %}"  class="text-decoration-none text-white"> {{wait.sender_full_name}}</a></td>
+                <td>{{wait.request.phone_brand }}-{{wait.request.phone_model}}</td>
+                <td>{{wait.request.created_date }} </td>
+                <td>
+                  {% comment %} <button class="btn btn-success">Onayla</button> {% endcomment %}
+                  {% if wait.request.acceptance == False %}
+                  <a href="{% url 'hospital:Garage_Acceptance_Yes' wait.request.product %}"  class="btn btn-primary">ONAYLA</a>
+                  {% else %}
+                  <button type="button" class="btn btn-success" disabled>ONAYLANDI</button>
+                  {% endif %}
+                </td>
+                <td>
+                {% if wait.request.acceptance == False %}
+
+                  {% comment %} <button class="btn btn-danger">Reddet</button> {% endcomment %}
+                  <a href="{% url 'hospital:Garage_Acceptance_No' wait.request.product wait.request.sender.id%}"  class="btn btn-danger" >Reddet</a>
+                  {% else %}
+                  <button type="button" class="btn btn-danger" disabled>REDDET</button>
+                  {% endif %}
+                </td>
+                {% if wait.request.jobfinish_business == False %}
+                <td>
+                  <button type="button" class="btn btn-primary" disabled>HENÜZ DEĞİL</button>
+                {% else %}
+                {% if wait.request.jobfinish == False %}
+                <td>
+                  <a href="{% url 'hospital:Jobfinish_Personel' wait.request.product wait.request.sender.id%}"  class="btn btn-primary">TESLİM AL</a>
+                {% comment %} <button type="button" class="btn btn-primary" >Evet</button> {% endcomment %}
+              </td>
+              {% else %}
+              <td style="background:#3FFF00;color:white">
+              TESLİM ALINDI
+
+              {% comment %} <a href=""  class="btn btn-success">{{ wait.request.product}}Teslim Alındı</a> {% endcomment %}
+            </td>
+              
+              
+              {% endif %}
+                {% endif %}
+       
+              </tr>
+              <tr>
+                {% endfor %}
+                {% else %}
+              
+                <tr> 
+                  <td class="bg-danger text-white text-center ">TAMİR İSTEK LİSTESİ BOŞ</td>
+                  
+                </tr>
+        
+                {% endif %}
+              <!-- Verileri buraya ekleyebilirsiniz -->
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- bitiş-->
+
+
+</div>
+
+{% endblock body %}

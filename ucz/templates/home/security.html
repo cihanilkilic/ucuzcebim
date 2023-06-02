@@ -1,0 +1,45 @@
+
+{% extends 'base/base.html' %}
+{% block body %}
+<hr style="margin-top:45px;">
+<header class=" py-5 container shadow-sm border-0 rounded">
+    <div class="px-md-5">
+        <h1  class="text-center">Gizlilik Politikası</h1>
+
+        <p>Bu gizlilik politikası, web sitemizi ziyaret eden kullanıcılarımızın gizliliğini korumak amacıyla oluşturulmuştur.</p>
+      
+        <h2>Toplanan Bilgiler</h2>
+      
+        <p>Web sitemizi ziyaret ederken, belirli bilgiler otomatik olarak kaydedilebilir. Bu bilgiler arasında IP adresi, tarayıcı türü, ziyaret tarihi ve saati, sayfalara erişim sırasında kullanılan bağlantılar ve diğer istatistiksel veriler yer alabilir.</p>
+      
+        <h2>Çerezler</h2>
+      
+        <p>Web sitemiz, kullanıcı deneyimini geliştirmek ve tercihlerinizi hatırlamak için çerezler kullanabilir. Çerezler, tarayıcınız tarafından yerel olarak depolanan küçük metin dosyalarıdır.</p>
+      
+        <h2>Veri Kullanımı</h2>
+      
+        <p>Toplanan bilgiler, web sitemizin işleyişiyle ilgili istatistiksel analizler yapmak, içerik ve hizmetlerimizi geliştirmek, kullanıcı deneyimini kişiselleştirmek ve reklamları hedeflemek amacıyla kullanılabilir.</p>
+      
+        <h2>Veri Paylaşımı</h2>
+      
+        <p>Toplanan bilgiler, yasal gereklilikler veya yetkili makamlar tarafından talep edildiği durumlar haricinde üçüncü taraflarla paylaşılmaz.</p>
+      
+        <h2>Veri Güvenliği</h2>
+      
+        <p>Web sitemizde toplanan bilgilerin güvenliği için uygun önlemler alınmaktadır. Ancak, internet üzerinden iletilen verilerin tam güvenliğini garanti edemeyiz.</p>
+      
+        <h2>Diğer Web Siteleri</h2>
+      
+        <p>Web sitemiz, farklı web sitelerine bağlantılar içerebilir. Bu web sitelerinin gizlilik uygulamalarından sorumlu değiliz. Dış bağlantıları kullanırken ilgili web sitelerinin gizlilik politikalarını okumanızı öneririz.</p>
+      
+        <h2>Gizlilik Politikası Güncellemeleri</h2>
+      
+        <p>Gizlilik politikamızı zaman zaman güncelleyebiliriz. Bu sayfayı düzenli olarak kontrol etmenizi öneririz.</p>
+      
+        <h2>İletişim</h2>
+      
+        <p>Gizlilik politikamızla ilgili herhangi bir sorunuz varsa, <a href="{% url 'home:Contact_Form' %}" class="text-decoration-none">iletişim</a>  kısmından ulaşın.</p>
+    </div>
+</header>
+
+{% endblock body %}

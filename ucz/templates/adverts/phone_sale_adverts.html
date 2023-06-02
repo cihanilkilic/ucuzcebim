@@ -1,0 +1,141 @@
+{% extends 'base/base.html' %} {% block body %}
+<div
+  class="container px-4 px-lg-5 shadow border-0"
+  style="margin-top: 80px; margin-bottom: 30px"
+>
+  <form
+    method="POST"
+    class="form form-control mt-3 border-0"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+{% if messages %}
+{% include 'messages/success.html' %}
+{% endif %}
+    <div class="container">
+      <h6 class="text-center">Telefon Satış İlanı</h6>
+
+      <div class="row row row-cols-2 row-cols-md-4 g-2">
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label" >Telefon Markası</label>
+          <input
+            type="text"id=""placeholder="Telefon Markası" name="phone_brand" class="form-control"/>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Telefon Modeli</label>
+          <input type="text"id=""placeholder="Telefon Modeli" name="phone_model" class="form-control"/>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">İşletim Sistemi</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="os">
+              {% for os in os_lists %}
+              <option value="{{os}}">{{os}}</option>
+              {% endfor %}
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Ram Bellek</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="ram_memory">
+              {% for ram_memory in ram_memory_lists %}
+              <option value="{{ram_memory}}">{{ram_memory}}</option>
+              {% endfor %}
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Hafıza Bellek</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="memory_memory">
+          {% for memory_memory in memory_lists %}
+              <option value="{{memory_memory}}">{{memory_memory}}</option>
+              {% endfor %}
+
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Durumu</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="situation">
+              {% for situation in situation_lists %}
+              <option value="{{situation}}">{{situation}}</option>
+              {% endfor %}
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Garanti</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="garanti">
+              {% for garanti in garanti_lists %}
+              <option value="{{garanti}}">{{garanti}}</option>
+              {% endfor %}
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+
+        <div class="col-sm text-center">
+          <label for="inputPassword6" class="col-form-label">Takaslı</label>
+          <div class="dropdown">
+            <!-- başlangıç-->
+            <select class="form-select form-select-lg mb-3 text-center"aria-label=".form-select-lg example"name="swap">
+              {% for swap in swap_lists %}
+              <option value="{{swap}}">{{swap}}</option>
+              {% endfor %}
+            </select>
+            <!-- Bitiş-->
+          </div>
+        </div>
+      </div>
+
+      <!-- İkinci dropdown  -->
+
+      <div class="row row row-cols-2 row-cols-md-3 g-2">
+        <div class="col-sm text-center">
+          <input type="text" id="" placeholder="İl" name="city" class="form-control" />
+        </div>
+        <div class="col-sm text-center">
+          <input type="text" id="" placeholder="İlçe" name="district" class="form-control" />
+        </div>
+        <div class="col-sm text-center col-12">
+          <input type="number" id="" placeholder="Fiyat"  name="price" class="form-control" />
+        </div>
+        <textarea class="form-control"placeholder="Açıklama" name="comment"id="floatingTextarea"style="height: 200px"></textarea>
+      </div>
+
+      <div class="mb-3 mt-3">
+        <!-- <label for="formFile" class="form-label">Default file input example</label>-->
+        <input
+          class="form-control"
+          type="file" 
+          id="formFile"
+          name="avatar"
+        />
+      </div>
+      <div class="d-grid gap-2 mt-2">
+        <button class="btn btn-success mb-3" type="submit">
+          İlanı Oluştur
+        </button>
+      </div>
+    </div>
+    {% endblock body %}
+  </form>
+</div>

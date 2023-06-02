@@ -1,0 +1,166 @@
+<section class="py-5">
+    <div class="container px-5 my-5 shadow border-0">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    {% comment %} <h2 class="fw-bolder">Öne Çıkanlar</h2> {% endcomment %}
+                    <h2 class="fw-bolder fs-5 mb-4 text-center pt-4 text-primary">Tamir/Satılık Ürünler/Telefon Parçaları/Aksesuar</h2>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row gx-5">
+            {% if random_phonesale %}
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    {% if random_phonesale.avatar %}
+                    <img class="card-img-top" src="{{ random_phonesale.avatar.url }}" style="height: 250px;" alt="..." />
+                    {% else %}
+                    <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                    <p class="text-center text-danger">Ürün Resmi Bulunmamaktadır</p>
+                  {% endif %}
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ random_phonesale.label}}</div>
+                        <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ random_phonesale.price}}&nbsp;TL</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Sales_Details' random_phonesale.id %}"><div class="h5 card-title mb-3">{{ random_phonesale.phone_brand }}-{{ random_phonesale.phone_model }}</div></a>
+                        <p class="card-text mb-0">{{ random_phonesale.comment |truncatechars:205}}</p>
+
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                                {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                                <div class="small align-items-start">
+                                    <div class="fw-bold" style="text-transform: uppercase;">{{ full_name_PhoneSales }}</div>
+                                    <div class="text-muted">{{ random_phonesale.created_date|date:"d.m.Y"}}</div>
+                                  </div>
+                                  <div class="small align-items-end" style="margin-left:100px">
+                                    <div class="fw-bold">{{ random_phonesale.city|truncatechars:12 }}</div>
+                                    <div class="text-muted">{{ random_phonesale.district|truncatechars:12 }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            {% comment %} <p class="text-center text-danger">Gösterilecek ürün bulunmamaktadır.</p> {% endcomment %}
+        {% endif %}
+
+
+        {% if random_MobileRepair %}
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    {% if random_MobileRepair.avatar %}
+                    <img class="card-img-top" src="{{ random_MobileRepair.avatar.url }}" style="height: 250px;" alt="..." />
+                    {% else %}
+                    <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                    <p class="text-center text-danger">Ürün Resmi Bulunmamaktadır</p>
+                  {% endif %}
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ random_MobileRepair.label}}</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Repair_Details' random_MobileRepair.id %}"><div class="h5 card-title mb-3">{{ random_MobileRepair.phone_brand }}-{{ random_MobileRepair.phone_model }}</div></a>
+                        <p class="card-text mb-0">{{ random_MobileRepair.comment |truncatechars:205}}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                                {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                                <div class="small align-items-start">
+                                    <div class="fw-bold" style="text-transform: uppercase;">{{ full_name_MobileRepair }}</div>
+                                    <div class="text-muted">{{ random_MobileRepair.created_date|date:"d.m.Y"}}</div>
+                                  </div>
+                                  
+                                  <div class="small align-items-end" style="margin-left:100px">
+                                    <div class="fw-bold">{{ random_MobileRepair.city|truncatechars:12 }}</div>
+                                    <div class="text-muted">{{ random_MobileRepair.district|truncatechars:12 }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            {% comment %} <p class="text-center text-danger">Gösterilecek ürün bulunmamaktadır.</p> {% endcomment %}
+        {% endif %}
+
+
+        {% if random_PhonePart %}
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    {% if random_PhonePart.avatar %}
+                    <img class="card-img-top" src="{{ random_PhonePart.avatar.url }}" style="height: 250px;" alt="..." />
+                    {% else %}
+                    <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                    <p class="text-center text-danger">Ürün Resmi Bulunmamaktadır</p>
+                  {% endif %}
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ random_PhonePart.label}}</div>
+                        <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ random_PhonePart.price}}&nbsp;TL</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'advert:Phone_Part_Details' random_PhonePart.id %}"><div class="h5 card-title mb-3">{{ random_PhonePart.part_name }}</div></a>
+                        <p class="card-text mb-0">{{ random_PhonePart.comment |truncatechars:205}}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                            {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                            <div class="small align-items-start">
+                                <div class="fw-bold" style="text-transform: uppercase;">{{ full_name_PhonePart }}</div>
+                                <div class="text-muted">{{ random_PhonePart.created_date|date:"d.m.Y"}}</div>
+                            </div>
+                            
+                            <div class="small align-items-end" style="margin-left:100px">
+                                <div class="fw-bold">{{ random_PhonePart.city|truncatechars:12 }}</div>
+                                <div class="text-muted">{{ random_PhonePart.district |truncatechars:12}}</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {% else %}
+            {% comment %} <p class="text-center text-danger">Gösterilecek ürün bulunmamaktadır.</p> {% endcomment %}
+        {% endif %}
+
+
+        {% if random_PhoneAksesuar %}
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    {% if random_PhoneAksesuar.avatar %}
+                    <img class="card-img-top" src="{{ random_PhoneAksesuar.avatar.url }}"  style="height: 250px;"alt="..." />
+                    {% else %}
+                    <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                    <p class="text-center text-danger">Ürün Resmi Bulunmamaktadır</p>
+                  {% endif %}
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ random_PhoneAksesuar.label}}</div>
+                        <div class="badge bg-danger bg-gradient rounded-pill mb-2 " >{{ random_PhoneAksesuar.price}}&nbsp;TL</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url  'advert:Phone_Aksesuar_Details' random_PhoneAksesuar.id %}"><div class="h5 card-title mb-3">{{ random_PhoneAksesuar.aksesuar_name }}</div></a>
+                        <p class="card-text mb-0">{{ random_PhoneAksesuar.comment |truncatechars:205}}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                            {% comment %} <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {% endcomment %}
+                            <div class="small align-items-start">
+                                <div class="fw-bold" style="text-transform: uppercase;">{{ full_name_PhoneAksesuar }}</div>
+                                <div class="text-muted">{{ random_PhoneAksesuar.created_date|date:"d.m.Y"}}</div>
+                            </div>
+                            
+                            <div class="small align-items-end" style="margin-left:100px">
+                                <div class="fw-bold">{{ random_PhoneAksesuar.city |truncatechars:11}}</div>
+                                <div class="text-muted">{{ random_PhoneAksesuar.district|truncatechars:11 }}</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            {% comment %} <p class="text-center text-danger">Gösterilecek ürün bulunmamaktadır.</p> {% endcomment %}
+        {% endif %}
+
+
+        </div>
